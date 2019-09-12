@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author arman
+ * @author asus
  */
 @Entity
 @Table(name = "tb_tr_participant")
@@ -42,12 +42,11 @@ public class Participant implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private String id;
-    @Basic(optional = false)
     @Column(name = "grade")
     private String grade;
-    @Basic(optional = false)
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "score")
-    private float score;
+    private Float score;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "participant", fetch = FetchType.LAZY)
     private List<Assessment> assessmentList;
     @JoinColumn(name = "batch_class", referencedColumnName = "id")
@@ -62,12 +61,6 @@ public class Participant implements Serializable {
 
     public Participant(String id) {
         this.id = id;
-    }
-
-    public Participant(String id, String grade, float score) {
-        this.id = id;
-        this.grade = grade;
-        this.score = score;
     }
 
     public String getId() {
@@ -86,11 +79,11 @@ public class Participant implements Serializable {
         this.grade = grade;
     }
 
-    public float getScore() {
+    public Float getScore() {
         return score;
     }
 
-    public void setScore(float score) {
+    public void setScore(Float score) {
         this.score = score;
     }
 

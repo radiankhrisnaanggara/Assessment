@@ -1,13 +1,20 @@
 <%-- 
-    Document   : assessment
-    Created on : Sep 11, 2019, 10:47:40 PM
+    Document   : home
+    Created on : Sep 12, 2019, 9:43:04 AM
     Author     : asus
 --%>
 
 <%@page import="models.EmployeeRole"%>
 <%@page import="java.util.List"%>
-<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    List<EmployeeRole> logSession = (List<EmployeeRole>) session.getAttribute("sessionLogin");
+    String status = (String) session.getAttribute("status");
+    if (logSession == null) {
+        out.println("<script>alert('Anda belum login!')</script>");
+        out.println("<script>window.location.href=\"login.jsp\"</script>");
+    } else {
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,7 +25,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
-
         <title>JSP Page</title>
 
         <style>
@@ -37,7 +43,6 @@
                 }
             }
         </style>
-
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
@@ -54,17 +59,17 @@
                         <a class="nav-link" href="assessment.jsp">Assessment Process</a>
                     </li>
                 </ul>
-                <a class="btn btn-danger" onClick="" href="#">Logout</a>
+                <a class="btn btn-danger" onClick="logout()" href="#">Logout</a>
             </div>
         </nav>
 
         <div class="container">
 
-            <div class="modal fade" id="assessment" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+            <div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-scrollable" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalScrollableTitle">Assessment</h5>
+                            <h5 class="modal-title" id="exampleModalScrollableTitle">Assessment Result Detail</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -73,34 +78,49 @@
                             <div class="form-group">
                                 <label class="control-label col-lg-2">ID :</label>
                                 <div class="col-lg-12">
-                                    <input class="form-control" type="text" id="assessmentId" name="assessmentId" />
+                                    <input class="form-control" type="text" id="assessmentId" name="assessmentId" readonly=""/>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-lg-5">Name :</label>
+                                <label class="control-label col-lg-5">Participant Name :</label>
                                 <div class="col-lg-12">
-                                    <input class="form-control" type="text" id="name" name="name" />
+                                    <input class="form-control" type="text" id="name" name="name" readonly=""/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-lg-5">Batch Class :</label>
                                 <div class="col-lg-12">
-                                    <input class="form-control" type="text" id="batchClass" name="batchClass" />
+                                    <input class="form-control" type="text" id="batchClass" name="batchClass" readonly=""/>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-lg-5">Lesson Criteria:</label>
+                                <label class="control-label col-lg-5">Lesson Criteria :</label>
                                 <div class="col-lg-12">
-                                    <select class="form-control">
-                                        <option>1</option>
-                                        <option>2</option>
-                                    </select>
+                                    <input class="form-control" type="text" id="lessonCriteria" name="lessonCriteria" readonly=""/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-lg-5">Score :</label>
                                 <div class="col-lg-12">
-                                    <input class="form-control" type="number" id="score" name="score" />
+                                    <input class="form-control" type="number" id="score" name="score" readonly=""/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-lg-5">Lesson :</label>
+                                <div class="col-lg-12">
+                                    <input class="form-control" type="number" id="score" name="lesson" readonly=""/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-lg-5">Score :</label>
+                                <div class="col-lg-12">
+                                    <input class="form-control" type="number" id="scoreLesson" name="scoreLesson" readonly=""/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-lg-5">Grade :</label>
+                                <div class="col-lg-12">
+                                    <input class="form-control" type="number" id="grade" name="grade" readonly=""/>
                                 </div>
                             </div>
                         </div>
@@ -110,29 +130,31 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>            
 
             <div class="" style="margin-top: 20px;">
                 <div class="card">
                     <div class="card-header">
-                        Table Participant
+                        Assessment Result
                     </div>
                     <div class="card-body">
                         <table id="example" class="hover" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th align="center">ID</th>
+                                    <th>ID</th>
                                     <th>Participant Name</th>
-                                    <th>Batch Class</th>
-                                    <th></th>
+                                    <th>Score</th>
+                                    <th>Grade</th>
+                                    <th>Detail Assessment</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Batch Class</td>
-                                    <td><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#assessment">ASSESSMENT</button></td>
+                                    <td>1</td>
+                                    <td>Coba UI</td>
+                                    <td>99</td>
+                                    <td>A</td>
+                                    <td><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#detail">Detail</button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -141,6 +163,8 @@
             </div>
         </div>
 
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -153,7 +177,7 @@
                 $('#example').DataTable();
             });
         </script>
-
+        
         <script type="text/javascript">
             function logout() {
                 swal({
@@ -169,8 +193,12 @@
                     }
                 });
             }
-
+            
         </script>
-
+        
     </body>
 </html>
+<%
+    }
+    session.removeAttribute("status");
+%>

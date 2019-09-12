@@ -42,7 +42,7 @@ Contributor(s):
 <hibernate-configuration>
   <session-factory>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/db_user_management</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/db_assessment</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.show_sql">false</property>
@@ -63,5 +63,6 @@ Contributor(s):
     <mapping class="models.Participant"/>
     <mapping class="models.Role"/>
     <mapping class="models.Sylabus"/>
+    <mapping class="models.Status"/>
   </session-factory>
 </hibernate-configuration>

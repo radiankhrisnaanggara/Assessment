@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author arman
+ * @author asus
  */
 @Entity
 @Table(name = "tb_tr_assessment_detail")
@@ -36,9 +36,9 @@ public class AssessmentDetail implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private String id;
-    @Basic(optional = false)
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "score")
-    private float score;
+    private Float score;
     @JoinColumn(name = "lesson_criteria", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private LessonCriteria lessonCriteria;
@@ -53,11 +53,6 @@ public class AssessmentDetail implements Serializable {
         this.id = id;
     }
 
-    public AssessmentDetail(String id, float score) {
-        this.id = id;
-        this.score = score;
-    }
-
     public String getId() {
         return id;
     }
@@ -66,11 +61,11 @@ public class AssessmentDetail implements Serializable {
         this.id = id;
     }
 
-    public float getScore() {
+    public Float getScore() {
         return score;
     }
 
-    public void setScore(float score) {
+    public void setScore(Float score) {
         this.score = score;
     }
 

@@ -15,10 +15,11 @@ import org.hibernate.SessionFactory;
  * @author asus
  */
 public class Testing {
+
     public static void main(String[] args) {
-        SessionFactory factory = HibernateUtil.getSessionFactory();
-        System.out.println(factory);
-        List<Employee> asd = new GeneralDAO<>(factory, Employee.class).getAll();
-        
+        //        SessionFactory factory = HibernateUtil.getSessionFactory();
+        //        System.out.println(factory);        
+        BCrypt bc = new BCrypt();
+        System.out.println(BCrypt.hashpw("dimas", BCrypt.gensalt()));
     }
 }
