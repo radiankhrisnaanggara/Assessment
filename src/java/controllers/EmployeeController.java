@@ -5,28 +5,41 @@
  */
 package controllers;
 
+import icontrollers.IEmployeeController;
 import daos.GeneralDAO;
 import idaos.IGeneralDAO;
-import models.Classes;
+import java.util.List;
+import models.Employee;
+import models.Participant;
 import org.hibernate.SessionFactory;
-import icontrollers.IClassesController;
 
 /**
  *
  * @author arman
  */
-public class ClassesController implements IClassesController {
+public class EmployeeController implements IEmployeeController {
+
     private IGeneralDAO igd;
 
-    public ClassesController(SessionFactory factory) {
-        igd = new GeneralDAO<>(factory, Classes.class);
+    public EmployeeController(SessionFactory factory) {
+        igd = new GeneralDAO<>(factory, Employee.class);
+    }
+
+    @Override
+    public List<Employee> getAll() {
+        return igd.getAll();
     }
     
     @Override
-    public String save(Classes classes) {
+    public Employee getById(String id){
+        return (Employee) igd.getById(id);
+    }
+
+    @Override
+    public String save(Employee employee) {
         String result = "";
         try {
-            if (igd.saveOrDelete(classes, true)) {
+            if (igd.saveOrDelete(employee, true)) {
                 result = "Save Data Berhasil";
             } else {
                 result = "Save Data Gagal";
@@ -37,8 +50,4 @@ public class ClassesController implements IClassesController {
         return result;
     }
 
-    @Override
-    public Classes getById(String id) {
-        return (Classes) igd.getById(id);
-    }
 }

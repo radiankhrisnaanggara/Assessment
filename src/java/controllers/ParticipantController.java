@@ -28,6 +28,11 @@ public class ParticipantController implements IParticipantController {
     public List<Participant> getAll() {
         return igd.getAll();
     }
+    
+    @Override
+    public Participant getById(String id){
+        return (Participant) igd.getById(id);
+    }
 
     @Override
     public String save(Participant participant) {

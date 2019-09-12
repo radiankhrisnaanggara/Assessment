@@ -5,6 +5,7 @@
  */
 package icontrollers;
 
+import java.util.List;
 import models.BatchClass;
 
 /**
@@ -15,4 +16,5 @@ public interface IBatchClassController {
 
     String save(BatchClass batchClass);
     
+    List<BatchClass> getAll();
 }

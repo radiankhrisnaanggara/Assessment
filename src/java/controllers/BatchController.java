@@ -36,4 +36,11 @@ public class BatchController implements IBatchController {
         }
         return result;
     }
+
+    @Override
+    public Batch getById(String id) {
+        return (Batch) igd.getById(id);
+    }
+    
+    
 }

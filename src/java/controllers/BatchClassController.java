@@ -8,6 +8,7 @@ package controllers;
 import icontrollers.IBatchClassController;
 import daos.GeneralDAO;
 import idaos.IGeneralDAO;
+import java.util.List;
 import models.BatchClass;
 import org.hibernate.SessionFactory;
 
@@ -35,5 +36,10 @@ public class BatchClassController implements IBatchClassController {
             result = "Save Data Gagal Error";
         }
         return result;
+    }
+
+    @Override
+    public List<BatchClass> getAll() {
+        return igd.getAll();
     }
 }

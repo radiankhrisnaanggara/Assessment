@@ -41,7 +41,7 @@ public class GeneralDAO<T> implements IGeneralDAO<T> {
             transaction = session.beginTransaction();
             Query query = session.createQuery("FROM " + table.getClass().getSimpleName());
             t = query.list();
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             if (transaction != null) {
@@ -60,11 +60,11 @@ public class GeneralDAO<T> implements IGeneralDAO<T> {
         try {
             session = factory.openSession();
             transaction = session.beginTransaction();
-            
+
             Query query = session.createQuery("FROM " + table.getClass().getSimpleName() + " WHERE id = :id");
             query.setParameter("id", id);
             t = (T) query.uniqueResult();
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             if (transaction != null) {
@@ -83,14 +83,14 @@ public class GeneralDAO<T> implements IGeneralDAO<T> {
         try {
             session = factory.openSession();
             transaction = session.beginTransaction();
-            
+
             if (isSave) { //update
                 session.saveOrUpdate(t);
             } else { //delete
                 session.delete(t);
             }
             transaction.commit();
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             result = false;

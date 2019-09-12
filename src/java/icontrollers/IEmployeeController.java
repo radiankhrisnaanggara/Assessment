@@ -5,14 +5,20 @@
  */
 package icontrollers;
 
-import models.Classes;
+import java.util.List;
+import models.Employee;
+import models.Participant;
 
 /**
  *
  * @author arman
  */
-public interface IClassesController {
+public interface IEmployeeController {
 
-    String save(Classes classes);
-    Classes getById(String id);
+    List<Employee> getAll();
+
+    Employee getById(String id);
+
+    String save(Employee employee);
+    
 }

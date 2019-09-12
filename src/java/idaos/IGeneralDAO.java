@@ -15,5 +15,4 @@ public interface IGeneralDAO<T> {
     public List<T> getAll();
     public T getById(Object id);
     public boolean saveOrDelete(T t, boolean isSave);
-    
 }

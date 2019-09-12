@@ -15,4 +15,5 @@ import models.Participant;
 public interface IParticipantController {
     public List<Participant> getAll();
     public String save(Participant participant);
+    public Participant getById(String id);
 }

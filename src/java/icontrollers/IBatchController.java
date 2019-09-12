@@ -14,5 +14,5 @@ import models.Batch;
 public interface IBatchController {
 
     String save(Batch batch);
-    
+    Batch getById(String id);
 }
