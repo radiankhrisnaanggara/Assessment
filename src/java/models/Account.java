@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -23,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author asus
+ * @author arman
  */
 @Entity
 @Table(name = "tb_tr_account")
@@ -33,7 +34,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Account.findById", query = "SELECT a FROM Account a WHERE a.id = :id")
     , @NamedQuery(name = "Account.findByPassword", query = "SELECT a FROM Account a WHERE a.password = :password")
     , @NamedQuery(name = "Account.findByToken", query = "SELECT a FROM Account a WHERE a.token = :token")
-    , @NamedQuery(name = "Account.findByStatus", query = "SELECT a FROM Account a WHERE a.status = :status")
     , @NamedQuery(name = "Account.findByVerifTime", query = "SELECT a FROM Account a WHERE a.verifTime = :verifTime")})
 public class Account implements Serializable {
 
@@ -47,15 +47,15 @@ public class Account implements Serializable {
     private String password;
     @Column(name = "token")
     private String token;
-    @Basic(optional = false)
-    @Column(name = "status")
-    private String status;
     @Column(name = "verif_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date verifTime;
     @JoinColumn(name = "id", referencedColumnName = "id", insertable = false, updatable = false)
     @OneToOne(optional = false, fetch = FetchType.LAZY)
     private Employee employee;
+    @JoinColumn(name = "status", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Status status;
 
     public Account() {
     }
@@ -64,10 +64,9 @@ public class Account implements Serializable {
         this.id = id;
     }
 
-    public Account(String id, String password, String status) {
+    public Account(String id, String password) {
         this.id = id;
         this.password = password;
-        this.status = status;
     }
 
     public String getId() {
@@ -94,14 +93,6 @@ public class Account implements Serializable {
         this.token = token;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public Date getVerifTime() {
         return verifTime;
     }
@@ -116,6 +107,14 @@ public class Account implements Serializable {
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     @Override

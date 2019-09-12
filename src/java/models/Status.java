@@ -25,13 +25,13 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author arman
  */
 @Entity
-@Table(name = "tb_m_criteria")
+@Table(name = "tb_m_status")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Criteria.findAll", query = "SELECT c FROM Criteria c")
-    , @NamedQuery(name = "Criteria.findById", query = "SELECT c FROM Criteria c WHERE c.id = :id")
-    , @NamedQuery(name = "Criteria.findByName", query = "SELECT c FROM Criteria c WHERE c.name = :name")})
-public class Criteria implements Serializable {
+    @NamedQuery(name = "Status.findAll", query = "SELECT s FROM Status s")
+    , @NamedQuery(name = "Status.findById", query = "SELECT s FROM Status s WHERE s.id = :id")
+    , @NamedQuery(name = "Status.findByName", query = "SELECT s FROM Status s WHERE s.name = :name")})
+public class Status implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -41,17 +41,17 @@ public class Criteria implements Serializable {
     @Basic(optional = false)
     @Column(name = "name")
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "criteria", fetch = FetchType.LAZY)
-    private List<LessonCriteria> lessonCriteriaList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "status", fetch = FetchType.LAZY)
+    private List<Account> accountList;
 
-    public Criteria() {
+    public Status() {
     }
 
-    public Criteria(String id) {
+    public Status(String id) {
         this.id = id;
     }
 
-    public Criteria(String id, String name) {
+    public Status(String id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -73,12 +73,12 @@ public class Criteria implements Serializable {
     }
 
     @XmlTransient
-    public List<LessonCriteria> getLessonCriteriaList() {
-        return lessonCriteriaList;
+    public List<Account> getAccountList() {
+        return accountList;
     }
 
-    public void setLessonCriteriaList(List<LessonCriteria> lessonCriteriaList) {
-        this.lessonCriteriaList = lessonCriteriaList;
+    public void setAccountList(List<Account> accountList) {
+        this.accountList = accountList;
     }
 
     @Override
@@ -91,10 +91,10 @@ public class Criteria implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Criteria)) {
+        if (!(object instanceof Status)) {
             return false;
         }
-        Criteria other = (Criteria) object;
+        Status other = (Status) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -103,7 +103,7 @@ public class Criteria implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Criteria[ id=" + id + " ]";
+        return "models.Status[ id=" + id + " ]";
     }
     
 }
