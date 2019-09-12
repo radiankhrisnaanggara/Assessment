@@ -8,6 +8,7 @@
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
+
     List<EmployeeRole> logSession = (List<EmployeeRole>) session.getAttribute("sessionLogin");
     String status = (String) session.getAttribute("status");
     if (logSession == null) {
@@ -75,59 +76,57 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <div class="form-group">
-                                <label class="control-label col-lg-2">ID :</label>
-                                <div class="col-lg-12">
-                                    <input class="form-control" type="text" id="assessmentId" name="assessmentId" readonly=""/>
+                            <form action="" method="">
+                                <div class="form-row">
+                                    <div class="form-group col-md">
+                                        <label for="assessmentId">ID :</label>
+                                        <input class="form-control" type="text" id="assessmentId" name="assessmentId" readonly=""/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-lg-5">Participant Name :</label>
-                                <div class="col-lg-12">
-                                    <input class="form-control" type="text" id="name" name="name" readonly=""/>
+                                <div class="form-row">
+                                    <div class="form-group col-md">
+                                        <label for="name">Participant Name :</label>
+                                        <input class="form-control" type="text" id="name" name="name" readonly=""/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-lg-5">Batch Class :</label>
-                                <div class="col-lg-12">
-                                    <input class="form-control" type="text" id="batchClass" name="batchClass" readonly=""/>
+                                <div class="form-row">
+                                    <div class="form-group col-md">
+                                        <label for="batchClass">Batch Class :</label>
+                                        <input class="form-control" type="text" id="batchClass" name="batchClass" readonly=""/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-lg-5">Lesson Criteria :</label>
-                                <div class="col-lg-12">
-                                    <input class="form-control" type="text" id="lessonCriteria" name="lessonCriteria" readonly=""/>
+                                <div class="form-row">
+                                    <div class="form-group col-md">
+                                        <label for="lessonCriteria">Lesson Criteria :</label>
+                                        <input class="form-control" type="text" id="lessonCriteria" name="lessonCriteria" readonly=""/>
+                                    </div>
+                                    <div class="form-group col-md">
+                                        <label for="score">Score :</label>
+                                        <input class="form-control" type="number" id="score" name="score" readonly=""/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-lg-5">Score :</label>
-                                <div class="col-lg-12">
-                                    <input class="form-control" type="number" id="score" name="score" readonly=""/>
+                                <div class="form-row">
+                                    <div class="form-group col-md">
+                                        <label for="lesson">Lesson :</label>
+                                        <input class="form-control" type="number" id="lesson" name="lesson" readonly=""/>
+                                    </div>
+                                    <div class="form-group col-md">
+                                        <label for="scoreLesson">Score :</label>
+                                        <input class="form-control" type="number" id="scoreLesson" name="scoreLesson" readonly=""/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-lg-5">Lesson :</label>
-                                <div class="col-lg-12">
-                                    <input class="form-control" type="number" id="score" name="lesson" readonly=""/>
+                                <div class="form-row">
+                                    <div class="form-group col-md">
+                                        <label for="grade">Grade :</label>
+                                        <input class="form-control" type="number" id="grade" name="grade" readonly=""/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-lg-5">Score :</label>
-                                <div class="col-lg-12">
-                                    <input class="form-control" type="number" id="scoreLesson" name="scoreLesson" readonly=""/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-lg-5">Grade :</label>
-                                <div class="col-lg-12">
-                                    <input class="form-control" type="number" id="grade" name="grade" readonly=""/>
-                                </div>
-                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button type="button" class="btn btn-primary">Save changes</button>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>            
@@ -173,11 +172,11 @@
         <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 
         <script type="text/javascript">
-            $(document).ready(function () {
-                $('#example').DataTable();
-            });
+                    $(document).ready(function () {
+                        $('#example').DataTable();
+                    });
         </script>
-        
+
         <script type="text/javascript">
             function logout() {
                 swal({
@@ -193,9 +192,9 @@
                     }
                 });
             }
-            
+
         </script>
-        
+
     </body>
 </html>
 <%
